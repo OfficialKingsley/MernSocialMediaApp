@@ -15,7 +15,20 @@ const verifyToken = expressAsyncHandler(
     if (tokenString.startsWith("Bearer")) {
       let token: string;
       token = tokenString.slice(7, tokenString.length).trimStart();
-      const verifiedToken = jwt.verify(token, process.env.JWT_SECRET!);
+
+      const user = await User.findOne({ token });
+
+      if (!user) {
+        res.status(400);
+        throw new Error("The user with that token was not found");
+      }
+
+      if (user.token !== token) {
+        res.status(400);
+        throw new Error("The token sent is incorrect");
+      }
+
+      const verifiedToken = jwt.verify(user.token, process.env.JWT_SECRET!);
       if (!verifiedToken) {
         res.status(403);
         throw new Error("This token provided is either invalid or is expired");

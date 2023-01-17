@@ -62,7 +62,7 @@ export const loginUser: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
     const { username, password } = req.body;
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username }).select("-__v");
 
     if (!user) {
       res.status(404);
@@ -72,32 +72,12 @@ export const loginUser: RequestHandler = asyncHandler(
     const passwordIsCorrect = await bcrypt.compare(password, user.password);
 
     if (user && passwordIsCorrect) {
-      const {
-        _id,
-        firstName,
-        lastName,
-        email,
-        username,
-        phone,
-        profileImagePath,
-        isAdmin,
-        isSuperUser,
-      } = user;
+      const newToken = generateToken(user._id);
 
-      const token = generateToken(user._id);
+      user.token = newToken;
+      await user.save();
 
-      res.status(200).json({
-        _id,
-        firstName,
-        lastName,
-        email,
-        username,
-        phone,
-        profileImagePath,
-        isAdmin,
-        isSuperUser,
-        token,
-      });
+      res.status(200).json(user);
     } else {
       res.status(400);
       throw new Error("Username or Password incorrect");
@@ -125,9 +105,92 @@ export const getUser: RequestHandler = asyncHandler(
     const { id } = req.params;
     try {
       const user = await User.findOne({ _id: id }).select("-password -__v");
+
       res.status(200).json(user);
     } catch (error) {
       errorResponse(res, 404, error, "User with that id was not found");
+    }
+  }
+);
+
+export const getUserFriends: RequestHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const user = await User.findById(id);
+
+      if (user) {
+        const friends = await Promise.all(
+          user?.friends.map((_id) =>
+            User.findById(_id).select("-password -__v")
+          )
+        );
+
+        res.status(200).json(friends);
+      }
+    } catch (error) {
+      errorResponse(res, 404, error, "The user with that id was not found");
+    }
+  }
+);
+
+export const addFriend: RequestHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const { id, friendId } = req.params;
+      // const {  } = req.body;
+
+      const user = await User.findById(id).select("-password -__v");
+      const friend = await User.findById(friendId);
+      if (user && friend) {
+        if (user.friends.includes(friend._id)) {
+          res.status(400);
+          throw new Error(
+            "This user is already a friend and therfore can't be added"
+          );
+        } else {
+          user.friends.push(friend._id);
+          friend.friends.push(user._id);
+        }
+        await user.save();
+        await friend.save();
+        res.status(200).json(user);
+      }
+    } catch (error) {
+      errorResponse(res, 400, error, "Cannot ");
+    }
+  }
+);
+
+export const removeFriend: RequestHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const { id, friendId } = req.params;
+      // const {  } = req.body;
+
+      const user = await User.findById(id).select("-password -__v");
+      const friend = await User.findById(friendId);
+
+      if (user === friend) {
+        res.status(400);
+        throw new Error("You cannot be a friend of yourself");
+      }
+      if (user && friend) {
+        if (user.friends.includes(friend._id)) {
+          user.friends.filter((id) => id !== friend._id);
+          friend.friends.filter((id) => id !== user._id);
+        } else {
+          res.status(400);
+          throw new Error(
+            "This user is not a friend and therfore can't be removed"
+          );
+        }
+        await user.save();
+        await friend.save();
+        res.status(200).json(user);
+      }
+    } catch (error) {
+      errorResponse(res, 400, error, "");
     }
   }
 );

@@ -31,10 +31,19 @@ const userSchema = new mongoose.Schema(
         true,
         "An image is required before an image path can be created. Please add an image",
       ],
-      default: "imagePath",
+      default: "",
     },
+    friends: { type: [mongoose.Schema.Types.ObjectId], default: [] },
     isAdmin: { type: Boolean, default: false },
     isSuperUser: { type: Boolean, default: false },
+    token: {
+      type: String,
+      default: "",
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
