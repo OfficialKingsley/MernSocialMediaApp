@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: "userSlice",
   initialState,
   reducers: {
     setMode: (state) => {
@@ -16,8 +16,6 @@ export const userSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
-    },
-    setToken: (state, action) => {
       state.token = action.payload.token;
     },
     setLogout: (state) => {

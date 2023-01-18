@@ -6,7 +6,9 @@ const login = async (username, password) => {
       "Content-Type": "application/json",
     },
   });
-  return await res.json();
+  const user = await res.json();
+
+  return user;
 };
 
 export default login;
