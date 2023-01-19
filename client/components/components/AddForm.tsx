@@ -1,9 +1,13 @@
 import Image from "next/image";
 import React from "react";
-import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
-import styles from "../../variables/styles";
+import { useSelector } from "react-redux";
 import ProfileImage from "./../../public/code-img1.jpg";
+
 const AddForm = () => {
+  const userState = useSelector((state) => {
+    return state.userState;
+  });
+  const user = userState.user;
   return (
     <div className={`bg-gray-400 rounded-3xl p-4 dark:bg-gray-900`}>
       <div className="mb-2 flex items-center gap-x-2">
@@ -21,6 +25,7 @@ const AddForm = () => {
           <input
             type="text"
             className="flex-1 p-2 rounded transparent outline-none bg-transparent"
+            placeholder={`What's on your mind ${user.firstName}?`}
           />
         </form>
       </div>

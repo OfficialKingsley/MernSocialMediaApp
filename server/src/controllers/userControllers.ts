@@ -11,6 +11,7 @@ const generateToken = (id: string | object | Buffer) => {
 
 export const registerUser: RequestHandler = asyncHandler(
   async (req: Request, res: Response) => {
+    console.log(req.body);
     const { firstName, lastName, email, username, phone, password } = req.body;
     if (!email) {
       res.status(400);

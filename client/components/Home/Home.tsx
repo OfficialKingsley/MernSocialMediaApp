@@ -1,10 +1,16 @@
 import Head from "next/head";
 import React from "react";
+import { useSelector } from "react-redux";
 import AddForm from "../components/AddForm";
 import Container from "../components/Container";
 import Layout from "../Layout";
 
 const Home = () => {
+  const userState = useSelector((state) => {
+    return state.userState;
+  });
+  const user = userState.user;
+
   return (
     <Layout>
       <Head>

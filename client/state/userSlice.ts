@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  mode: "light",
+  theme: "light",
   user: null,
   token: null,
   posts: [],
@@ -12,7 +12,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setMode: (state) => {
-      state.mode = state.mode === "light" ? "dark" : "light";
+      state.theme = state.theme === "light" ? "dark" : "light";
     },
     setUser: (state, action) => {
       state.user = action.payload;
