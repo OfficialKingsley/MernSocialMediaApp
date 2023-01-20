@@ -27,10 +27,6 @@ const userSchema = new mongoose.Schema(
     },
     profileImagePath: {
       type: String,
-      required: [
-        true,
-        "An image is required before an image path can be created. Please add an image",
-      ],
       default: "",
     },
     friends: { type: [mongoose.Schema.Types.ObjectId], default: [] },

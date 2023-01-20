@@ -6,6 +6,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import Container from "../components/components/Container";
+import styles from "../variables/styles";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -43,10 +44,7 @@ export default function LoginPage() {
     <div className="border h-screen">
       <Container>
         <div className="flex items-center justify-center h-full">
-          <form
-            action=""
-            className="flex flex-col gap-y-2 p-4 bg-gray-600 rounded-xl w-full md:w-"
-          >
+          <form action="" className={`${styles.authForm} block `}>
             <input
               type="text"
               name="username"
@@ -54,7 +52,7 @@ export default function LoginPage() {
               onChange={(e) => {
                 setUsername(e.target.value);
               }}
-              className="p-2 outline-none rounded"
+              className={`${styles.formInput} block`}
               placeholder="Username"
             />
             <input
@@ -64,12 +62,12 @@ export default function LoginPage() {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-              className="p-2 outline-none rounded"
+              className={styles.formInput}
               placeholder="Password"
             />
             <button
               type="submit"
-              className="bg-green-500 p-2 outline-none rounded"
+              className={`bg-green-500 ${styles.formInput}`}
               onClick={handleLogin}
             >
               Login

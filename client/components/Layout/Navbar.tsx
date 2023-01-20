@@ -45,7 +45,9 @@ const Navbar = () => {
               className="w-10 h-10 p-2border flex items-center justify-center bg-gray-400 rounded-full cursor-pointer hover:bg-gray-600 hover:text-white"
               title={`Profile (${user.firstName})`}
             >
-              <BsPerson />
+              <Link href="/profile">
+                <BsPerson />
+              </Link>
             </span>
           </div>
         </div>

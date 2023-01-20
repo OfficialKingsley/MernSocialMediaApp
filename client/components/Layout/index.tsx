@@ -2,28 +2,32 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import Navbar from "./Navbar";
 import { toast } from "react-toastify";
+import Router, { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Layout = ({ children }) => {
-  const userState = useSelector((state) => state.userState);
+  const router = useRouter();
+  const userState = useSelector((state) => {
+    return state.userState;
+  });
+
+  useEffect(() => {
+    !userState.user && router.push("/login");
+  }, []);
 
   return (
-    <div className="">
-      {userState.user ? (
-        <div className="dark:bg-zinc-900">
-          <header>
-            <Navbar />
-          </header>
-          {children}
+    <>
+      {userState.user && (
+        <div className="">
+          <div className="dark:bg-zinc-900">
+            <header>
+              <Navbar />
+            </header>
+            {children}
+          </div>
         </div>
-      ) : (
-        <>
-          No user please go to the{" "}
-          <Link href="/login" className="bg-gray-900 text-white p-2">
-            Login
-          </Link>
-        </>
       )}
-    </div>
+    </>
   );
 };
 
