@@ -59,6 +59,10 @@ export default function RegisterPage() {
       };
       const user = await register(reqBody);
       if (user._id) {
+        toast("Registration was successful", {
+          type: "success",
+          autoClose: 3000,
+        });
         router.push("/login");
       } else if (user.message) {
         toast(user.message, {
@@ -148,28 +152,34 @@ export default function RegisterPage() {
                 />
               </div>
             </div>
-            <input
-              type="password"
-              name="password"
-              id=""
-              value={password1}
-              onChange={(e) => {
-                setPassword1(e.target.value);
-              }}
-              className={styles.formInput}
-              placeholder="Password"
-            />
-            <input
-              type="password"
-              name="password"
-              id=""
-              value={password2}
-              onChange={(e) => {
-                setPassword2(e.target.value);
-              }}
-              className={styles.formInput}
-              placeholder={"Confirm Password"}
-            />
+            <div>
+              <label htmlFor="password1">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password1"
+                value={password1}
+                onChange={(e) => {
+                  setPassword1(e.target.value);
+                }}
+                className={styles.formInput}
+                placeholder="Password"
+              />
+            </div>
+            <div>
+              <label htmlFor="password2">Confirm Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password2"
+                value={password2}
+                onChange={(e) => {
+                  setPassword2(e.target.value);
+                }}
+                className={styles.formInput}
+                placeholder={"Confirm Password"}
+              />
+            </div>
             <button
               type="submit"
               className={`bg-green-900 ${styles.formInput} text-white`}
