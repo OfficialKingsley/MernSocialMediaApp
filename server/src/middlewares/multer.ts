@@ -5,10 +5,17 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   },
   destination: (req, file, cb) => {
-    cb(null, "src/public/images");
+    cb(null, "src/public/images/users");
+  },
+});
+const postImagestorage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+  destination: (req, file, cb) => {
+    cb(null, "src/public/images/posts");
   },
 });
 
-const upload = multer({ storage });
-
-export default upload;
+export const uploadUserImage = multer({ storage });
+export const uploadPostImage = multer({ storage: postImagestorage });

@@ -9,12 +9,12 @@ import {
   registerUser,
   removeFriend,
 } from "../controllers/userControllers";
-import upload from "../middlewares/multer";
+import { uploadUserImage } from "../middlewares/multer";
 import verifyToken from "../middlewares/verifyToken";
 
 const router: Router = Router();
 
-router.post("/register", upload.single("profileImage"), registerUser);
+router.post("/register", uploadUserImage.single("profileImage"), registerUser);
 router.post("/login", loginUser);
 router.get("/logout", logoutUser);
 

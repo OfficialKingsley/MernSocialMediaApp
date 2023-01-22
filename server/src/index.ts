@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 
 import userRoutes from "./routes/userRoutes";
 import errorHandler from "./middlewares/errorMiddleware";
+import postRoutes from "./routes/postRoutes";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(bodyParser.json({ limit: "30mb" }));
 // app.use(bodyParser.urlencoded({ limit: "30mb", extended: "true" }));
 
 app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
 
 // Variables and Mongoose setup
 const mongoUrl =

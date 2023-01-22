@@ -1,6 +1,8 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { setPosts } from "../../state/postSlice";
+import fetchPosts from "../../utils/fetchPosts";
 import AddForm from "../components/AddForm";
 import Container from "../components/Container";
 import Layout from "../Layout";
@@ -10,6 +12,25 @@ const Home = () => {
     return state.userState;
   });
   const user = userState.user;
+  const token = userState.token;
+
+  const postState = useSelector((state) => {
+    return state.postState;
+  });
+
+  console.log("post state", postState);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      console.log(token);
+      const data = await fetchPosts(token);
+      console.log(data);
+      if (data?.user) {
+        setPosts(data);
+      }
+    };
+    getPosts();
+  }, []);
 
   return (
     <Layout>
@@ -28,7 +49,11 @@ const Home = () => {
             </Container>
           </section>
           <section>
-            <Container>Posts</Container>
+            <Container>
+              {postState?.map((post) => (
+                <div key={1}>divclass</div>
+              ))}
+            </Container>
           </section>
         </main>
       </div>
