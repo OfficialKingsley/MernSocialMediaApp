@@ -4,7 +4,6 @@ const initialState = {
   theme: "light",
   user: null,
   token: null,
-  posts: [],
 };
 
 export const userSlice = createSlice({
@@ -21,7 +20,6 @@ export const userSlice = createSlice({
     setLogout: (state) => {
       (state.user = null), (state.token = null);
     },
-    setFriends: () => {},
   },
 });
 

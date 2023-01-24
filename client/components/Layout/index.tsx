@@ -1,8 +1,6 @@
-import Link from "next/link";
 import { useSelector } from "react-redux";
 import Navbar from "./Navbar";
-import { toast } from "react-toastify";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const Layout = ({ children }) => {

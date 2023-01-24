@@ -1,6 +1,6 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../state/postSlice";
 import fetchPosts from "../../utils/fetchPosts";
 import AddForm from "../components/AddForm";
@@ -8,6 +8,8 @@ import Container from "../components/Container";
 import Layout from "../Layout";
 
 const Home = () => {
+  const [postsList, setPostsList] = useState([]);
+  const dispatch = useDispatch();
   const userState = useSelector((state) => {
     return state.userState;
   });
@@ -18,15 +20,15 @@ const Home = () => {
     return state.postState;
   });
 
-  console.log("post state", postState);
-
   useEffect(() => {
     const getPosts = async () => {
-      console.log(token);
-      const data = await fetchPosts(token);
-      console.log(data);
-      if (data?.user) {
-        setPosts(data);
+      if (user) {
+        const data = await fetchPosts(token);
+
+        if (data?.length >= 0) {
+          dispatch(setPosts(data));
+          setPostsList(data);
+        }
       }
     };
     getPosts();
@@ -50,8 +52,10 @@ const Home = () => {
           </section>
           <section>
             <Container>
-              {postState?.map((post) => (
-                <div key={1}>divclass</div>
+              {postsList?.map((post) => (
+                <div key={post._id} className="text-black">
+                  {post.content}
+                </div>
               ))}
             </Container>
           </section>
