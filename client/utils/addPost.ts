@@ -1,10 +1,13 @@
-const addPost = (formData: FormData, token) => {
-  const res = fetch("http://localhost:5000/api/posts", {
+const addPost = async (formData: FormData, token) => {
+  const res = await fetch("http://localhost:5000/api/posts", {
+    method: "POST",
     body: formData,
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
+  const response = await res.json();
+  console.log(response);
+  return response;
 };
 export default addPost;

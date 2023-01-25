@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import addPost from "../../utils/addPost";
 import ProfileImage from "./../../public/code-img1.jpg";
 
 const AddForm = () => {
@@ -14,13 +16,28 @@ const AddForm = () => {
   });
 
   const formData = new FormData();
+  const user = userState.user;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(image);
     formData.append("content", content);
-    file.name.length > 0 && formData.append("image", image);
+    image.name.length > 0 && formData.append("postImage", image);
+    if (!content && content.length == 0 && image.name.length == 0) {
+      toast("You need to add either some content or a message", {
+        type: "warning",
+      });
+    } else {
+      const res = await addPost(formData, user.token);
+      if (res._id) {
+        toast("Successfully added a new post", {
+          type: "success",
+          autoClose: 3000,
+        });
+      }
+    }
   };
-  const user = userState.user;
+
   return (
     <div className={`bg-gray-400 rounded-3xl p-4 dark:bg-gray-900`}>
       <div className="mb-2 flex items-center gap-x-2">
@@ -61,7 +78,6 @@ const AddForm = () => {
                 accept=".jpg,.webp,.jpeg,.gif,.png"
                 onChange={(e) => {
                   setImage(e.target.files[0]);
-                  console.log(e.target.files[0]);
                 }}
               />
             </div>
