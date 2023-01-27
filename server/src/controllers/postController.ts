@@ -1,12 +1,15 @@
 import { Request, RequestHandler, Response } from "express";
 import expressAsyncHandler from "express-async-handler";
+import User from "../models/userModel";
 import errorResponse from "../utils/errorResponse";
 import Post from "./../models/postModel";
 
 export const getPosts: RequestHandler = expressAsyncHandler(
   async (req: Request, res: Response) => {
     try {
-      const posts = await Post.find({});
+      const posts = await Post.find({})
+        .select("-__v")
+        .populate("user", "-password -__v");
       res.status(200).json(posts);
     } catch (error) {
       errorResponse(res, 400, error, "");
@@ -26,6 +29,6 @@ export const addPost: RequestHandler = expressAsyncHandler(
       postImage: postImagePath,
     });
     const savedPost = await newPost.save();
-    await res.status(200).json(savedPost);
+    res.status(200).json(savedPost);
   }
 );
