@@ -5,6 +5,7 @@ import { setPosts } from "../../state/postSlice";
 import fetchPosts from "../../utils/fetchPosts";
 import AddForm from "../components/AddForm";
 import Container from "../components/Container";
+import Posts from "../components/Posts";
 import Layout from "../Layout";
 
 const Home = () => {
@@ -15,10 +16,6 @@ const Home = () => {
   });
   const user = userState.user;
   const token = userState.token;
-
-  const postState = useSelector((state) => {
-    return state.postState;
-  });
 
   useEffect(() => {
     const getPosts = async () => {
@@ -52,11 +49,7 @@ const Home = () => {
           </section>
           <section>
             <Container>
-              {postsList?.map((post) => (
-                <div key={post._id} className="text-black">
-                  {post.content}
-                </div>
-              ))}
+              <Posts posts={postsList} />
             </Container>
           </section>
         </main>

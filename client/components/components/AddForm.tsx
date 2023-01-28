@@ -28,6 +28,7 @@ const AddForm = () => {
         type: "warning",
       });
     } else {
+      formData.append("user", user._id);
       const res = await addPost(formData, user.token);
       if (res._id) {
         toast("Successfully added a new post", {
