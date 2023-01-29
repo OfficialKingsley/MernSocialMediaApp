@@ -2,10 +2,13 @@ import Container from "../components/Container";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { BsMoonFill, BsSunFill, BsPerson } from "react-icons/bs";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setTheme } from "../../state/userSlice";
 const Navbar = () => {
   const userState = useSelector((state) => state.userState);
   const user = userState.user;
+  const theme = userState.theme;
+  const dispatch = useDispatch();
 
   return (
     <nav className="bg-gray-300 dark:bg-gray-900 dark:text-white">
@@ -37,6 +40,13 @@ const Navbar = () => {
             <span
               id="theme-button"
               className="w-10 h-10 p-2border flex items-center justify-center bg-gray-400 rounded-full hover:bg-gray-600 hover:text-white cursor-pointer"
+              onClick={() => {
+                if (theme === "light") {
+                  dispatch(setTheme("dark"));
+                } else if (theme === "dark") {
+                  dispatch(setTheme("light"));
+                }
+              }}
             >
               <BsMoonFill className="dark:hidden" />
               <BsSunFill className="text-yellow-500 hidden dark:inline" />

@@ -8,6 +8,7 @@ const Layout = ({ children }) => {
   const userState = useSelector((state) => {
     return state.userState;
   });
+  const theme = userState.theme;
 
   useEffect(() => {
     !userState.user && router.push("/login");
@@ -16,7 +17,7 @@ const Layout = ({ children }) => {
   return (
     <>
       {userState.user && (
-        <div className="">
+        <div className={theme}>
           <div className="dark:bg-zinc-900">
             <header>
               <Navbar />

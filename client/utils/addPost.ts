@@ -7,7 +7,6 @@ const addPost = async (formData: FormData, token) => {
     },
   });
   const response = await res.json();
-  console.log(response);
   return response;
 };
 export default addPost;

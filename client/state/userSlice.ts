@@ -20,8 +20,11 @@ export const userSlice = createSlice({
     setLogout: (state) => {
       (state.user = null), (state.token = null);
     },
+    setTheme: (state, action) => {
+      state.theme = action.payload;
+    },
   },
 });
 
-export const { setMode, setUser, setLogout } = userSlice.actions;
+export const { setMode, setUser, setLogout, setTheme } = userSlice.actions;
 export default userSlice.reducer;
