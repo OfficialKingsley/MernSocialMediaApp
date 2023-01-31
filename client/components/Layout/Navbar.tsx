@@ -20,7 +20,7 @@ const Navbar = () => {
             </h1>
             <form
               action=""
-              className="hidden md:flex bg-gray-400 items-center rounded-lg px-2 "
+              className="hidden md:flex bg-gray-400 items-center rounded-lg px-2 dark:bg-gray-600"
             >
               <input type="text" className="bg-transparent outline-none p-2" />
               <button type="submit" className="">
@@ -39,7 +39,7 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             <span
               id="theme-button"
-              className="w-10 h-10 p-2border flex items-center justify-center bg-gray-400 rounded-full hover:bg-gray-600 hover:text-white cursor-pointer"
+              className="w-10 h-10 p-2border flex items-center justify-center bg-gray-400 rounded-full hover:bg-gray-600 hover:text-white cursor-pointer dark:bg-gray-600"
               onClick={() => {
                 if (theme === "light") {
                   dispatch(setTheme("dark"));
