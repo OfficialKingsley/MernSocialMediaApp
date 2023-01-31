@@ -66,7 +66,7 @@ const AddForm = () => {
             ></textarea>
           </div>
           <div className="flex gap-x-3">
-            <div className="flex-1 cursor-pointer rounded p-2 text-center bg-gray-900 text-white dark:hover:bg-gray-400 dark:hover:text-black">
+            <div className="flex-1 cursor-pointer rounded p-2 text-center bg-gray-900 text-white dark:hover:bg-gray-400 dark:hover:text-black dark:bg-gray-700">
               <label htmlFor="postImage" className="w-full h-full ">
                 Add Image
               </label>
@@ -86,7 +86,7 @@ const AddForm = () => {
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className="bg-gray-900 text-white block w-full h-full"
+                className="bg-gray-900 text-white block w-full h-full dark:bg-gray-700 rounded dark:hover:bg-gray-400 dark:hover:text-black"
               >
                 Add Post
               </button>
