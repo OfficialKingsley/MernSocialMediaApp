@@ -1,15 +1,18 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import addPost from "../../utils/addPost";
 import ProfileImage from "./../../public/code-img1.jpg";
+import fetchPosts from "../../utils/fetchPosts";
+import { setPosts } from "../../state/postSlice";
 
 const AddForm = () => {
   const blob = new Blob(["some-image"], { type: "image/png" });
   const file = new File([blob], "");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(file);
+  const dispatch = useDispatch();
 
   const userState = useSelector((state) => {
     return state.userState;
@@ -20,7 +23,6 @@ const AddForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(image);
     formData.append("content", content);
     image.name.length > 0 && formData.append("postImage", image);
     if (!content && content.length == 0 && image.name.length == 0) {
@@ -31,10 +33,14 @@ const AddForm = () => {
       formData.append("user", user._id);
       const res = await addPost(formData, user.token);
       if (res._id) {
-        toast("Successfully added a new post", {
-          type: "success",
-          autoClose: 3000,
-        });
+        const data = await fetchPosts(user.token);
+        if (data.length) {
+          dispatch(setPosts(data));
+          toast("Successfully added a new post", {
+            type: "success",
+            autoClose: 3000,
+          });
+        }
       }
     }
   };
