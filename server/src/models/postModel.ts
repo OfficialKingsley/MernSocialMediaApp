@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Comment from "./commentModel";
 import User from "./userModel";
 
 const postSchema = new mongoose.Schema(
@@ -8,7 +9,12 @@ const postSchema = new mongoose.Schema(
       type: String,
       max: 280,
     },
+    likes: {
+      type: Map,
+      of: Boolean,
+    },
     postImage: { type: String },
+    comments: [Comment],
   },
   { timestamps: true }
 );
