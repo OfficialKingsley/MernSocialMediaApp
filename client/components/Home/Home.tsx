@@ -39,20 +39,22 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="home_section">
-        <aside></aside>
-        <main>
-          <section className="py-4">
+      <div className="home_section flex justify-between">
+        <main className="md:max-w-4xl lg:max-w-5xl grow flex flex-col items-center">
+          <section className="py-4 w-full">
             <Container>
               <AddForm />
             </Container>
           </section>
-          <section>
+          <section className="w-full">
             <Container>
               <Posts posts={postsList} />
             </Container>
           </section>
         </main>
+        <aside className="border border-black hidden md:block bg-red-500 grow max-w-md">
+          Omo
+        </aside>
       </div>
     </Layout>
   );

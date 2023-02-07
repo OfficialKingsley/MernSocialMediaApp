@@ -72,8 +72,11 @@ const AddForm = () => {
             ></textarea>
           </div>
           <div className="flex gap-x-3">
-            <div className="flex-1 cursor-pointer rounded p-2 text-center bg-gray-900 text-white dark:hover:bg-gray-400 dark:hover:text-black dark:bg-gray-700">
-              <label htmlFor="postImage" className="w-full h-full ">
+            <div className="flex-1 flex">
+              <label
+                htmlFor="postImage"
+                className="w-full h-full p-2 cursor-pointer rounded dark:hover:bg-gray-400 dark:hover:text-black dark:bg-gray-700 text-center bg-gray-900 text-white"
+              >
                 Add Image
               </label>
 

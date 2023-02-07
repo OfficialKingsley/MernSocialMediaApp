@@ -18,11 +18,11 @@ const Post = ({ post }: { post: IPost }) => {
       <div>
         <div>Likes</div>
         <div className="buttons flex gap-x-3 mt-2">
-          <div className="flex-1 flex items-center justify-center cursor-pointer p-2 rounded-lg dark:bg-gray-800">
-            <AiFillLike />
+          <div className="flex-1 flex items-center justify-center cursor-pointer p-2 rounded-lg dark:bg-gray-800 bg-gray-900">
+            <AiFillLike className="text-white" />
           </div>
-          <div className="flex-1 flex items-center justify-center cursor-pointer p-2 rounded-lg dark:bg-gray-800">
-            <AiOutlineComment />
+          <div className="flex-1 flex items-center justify-center cursor-pointer p-2 rounded-lg dark:bg-gray-800 bg-gray-900">
+            <AiOutlineComment className="text-white" />
           </div>
         </div>
       </div>

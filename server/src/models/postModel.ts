@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Comment from "./commentModel";
+import Comment, { commentSchema } from "./commentModel";
 // import User from "./userModel";
 
 const postSchema = new mongoose.Schema(
@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema(
       of: Boolean,
     },
     postImage: { type: String },
-    comments: [Comment],
+    comments: { type: [commentSchema] },
   },
   { timestamps: true }
 );

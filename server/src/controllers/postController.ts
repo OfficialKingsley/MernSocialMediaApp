@@ -32,3 +32,16 @@ export const addPost: RequestHandler = expressAsyncHandler(
     res.status(200).json(savedPost);
   }
 );
+
+export const likePost: RequestHandler = expressAsyncHandler(
+  async (req: Request, res: Response) => {
+    const { userId, postId } = req.params;
+
+    const post = await Post.findById(postId);
+    const user = await User.findById(userId);
+
+    if (req.user) {
+      post?.likes?.set(`${user?._id}`, true);
+    }
+  }
+);
