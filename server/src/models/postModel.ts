@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Comment from "./commentModel";
-import User from "./userModel";
+// import User from "./userModel";
 
 const postSchema = new mongoose.Schema(
   {
